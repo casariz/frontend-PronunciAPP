@@ -1,0 +1,122 @@
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+  }
+  
+  .pronunciation-box {
+    max-width: 600px;
+    text-align: center;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: white;
+  }
+  
+  .title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .instructions {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  .text-box {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 1.6;
+  }
+  
+  .record-button {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .record-button:hover {
+    background-color: #ff7875;
+  }
+  
+  .microphone-icon {
+    margin-right: 10px;
+    font-size: 22px;
+  }
+
+  .record-button.recording {
+        background-color: #ff0000;
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+        }
+    }
+
+    .recording-indicator {
+        color: #ff0000;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+
+    .recording-complete {
+        color: #4CAF50;
+        font-weight: bold;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    
+    .audio-player-container {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .audio-player {
+        width: 100%;
+        max-width: 300px;
+        margin: 10px 0;
+    }
+    
+    .download-button {
+        background-color: #4285F4;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .download-button:hover {
+        background-color: #3367D6;
+    }
