@@ -19,7 +19,7 @@ export class SendAudioService {
   constructor(private http: HttpClient) { }
 
   sendAudio(audioBlob: Blob): Observable<AudioInferenceResponse> {
-    console.log('SendAudioService: Preparing to send audio to:', `${this.apiUrl}/infer_audio/`);
+    console.log('SendAudioService: Preparing to send audio to:', `${this.apiUrl}`);
     
     const formData = new FormData();
     formData.append('upload_audio_prompt', audioBlob, 'recording.wav');
@@ -33,7 +33,7 @@ export class SendAudioService {
     });
 
     return this.http.post<AudioInferenceResponse>(
-      `${this.apiUrl}/infer_audio/`, 
+      `${this.apiUrl}`, 
       formData,
       { headers: headers }
     ).pipe(
