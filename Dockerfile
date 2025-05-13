@@ -32,8 +32,6 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./ssl/pronunciapp_me.crt /etc/nginx/ssl/
 COPY ./ssl/pronunciapp.me.key /etc/nginx/ssl/
 COPY ./ssl/pronunciapp_me.ca-bundle /etc/nginx/ssl/
-COPY ./ssl/pronunciapp_me.p7b /etc/nginx/ssl/
-
 
 # Copiar los archivos construidos desde la fase de build
 # Se usa el directorio correcto según el "outputPath" de tu angular.json
