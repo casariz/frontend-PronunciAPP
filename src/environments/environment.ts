@@ -1,4 +1,4 @@
 export const environment = {
      production: true,  
-     apiUrl: 'http://206.189.237.50:8000/api'
+     apiUrl: 'https://pronunciapp.me/api'
 };
