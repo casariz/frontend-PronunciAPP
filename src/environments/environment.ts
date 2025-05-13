@@ -1,4 +1,4 @@
 export const environment = {
      production: true,  
-     apiUrl: 'https://pronunciapp.me/api/infer_audio/'
+     apiUrl: 'http://pronunciapp.me:8000/api/infer_audio/'
 };
