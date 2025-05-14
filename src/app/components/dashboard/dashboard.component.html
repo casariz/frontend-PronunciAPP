@@ -16,88 +16,50 @@
         </div>
 
         <div class="action-section">
-            <button class="record-button" [class.recording]="isRecording" (click)="startRecording()" [disabled]="isProcessing">
-                <i class="fa-solid" [class.fa-microphone]="!isRecording" [class.fa-stop]="isRecording" style="margin-right: 10px;"></i>
+            <button class="record-button" [class.recording]="isRecording" (click)="startRecording()"
+                [disabled]="isProcessing">
+                <i class="fa-solid" [class.fa-microphone]="!isRecording" [class.fa-stop]="isRecording"
+                    style="margin-right: 10px;"></i>
                 <span>{{ isRecording ? 'Detener grabación' : 'Iniciar grabación' }}</span>
             </button>
 
             <p *ngIf="isRecording" class="recording-indicator">
                 <i class="fa-solid fa-circle pulse"></i> Grabando...
             </p>
-            
-            <p *ngIf="isProcessing" class="processing-indicator">
-                <i class="fa-solid fa-spinner fa-spin"></i> Procesando audio...
-            </p>
+
+            <div *ngIf="isProcessing" class="processing-container">
+                <div class="spinner">
+                    <div class="spinner-outer"></div>
+                    <div class="spinner-inner"></div>
+                </div>
+                <div class="processing-text">Procesando audio...</div>
+            </div>
         </div>
 
-        <div *ngIf="audioUrl && !isProcessing && !processedAudioUrl" class="result-container">
-            <h2 class="result-title">¡Grabación completada!</h2>
-
-            <div class="audio-controls">
-                <audio controls [src]="audioUrl" class="audio-player"></audio>
-                <button class="download-button" (click)="downloadRecording()">
-                    <i class="fa-solid fa-file-arrow-down"></i>
-                    Descargar grabación
-                </button>
-            </div>
+        <div *ngIf="audioUrl && !isProcessing && !processedAudioUrl" class="result-container" style="margin-top: 20px;">
+            <h2 class="result-title">¡Grabación completada, pero algo falló!</h2>
 
             <p class="file-info">
                 <i class="fa-solid fa-circle-info"></i>
-                El audio se guarda en formato WAV de alta calidad
+                <span style="margin-left: 10px;">El audio se ha grabado correctamente, pero no se pudo procesar.</span>
             </p>
-        </div>
-        
-        <div *ngIf="errorMessage" class="error-container">
-            <p class="error-message">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                {{ errorMessage }}
-            </p>
-            
-            <!-- Debugging section -->
-            <div class="debug-section">
-                <details>
-                    <summary>Opciones de depuración</summary>
-                    <div class="debug-content">
-                        <p>Si estás experimentando problemas de CORS:</p>
-                        <ol>
-                            <li>Verifica que tu backend FastAPI esté ejecutándose</li>
-                            <li>Asegúrate de que CORS esté habilitado en el backend</li>
-                            <li>Confirma que la URL del API sea correcta</li>
-                        </ol>
-                        <div class="debug-buttons">
-                            <button class="debug-button" (click)="testBackendConnection()">
-                                <i class="fa-solid fa-server"></i>
-                                Probar conexión al backend
-                            </button>
-                        </div>
-                        <!-- <p>URL del API configurada: {{ sendAudioService['apiUrl'] }}</p> -->
-                        <p>Consulta la consola del navegador para más detalles de debugging.</p>
-                    </div>
-                </details>
-            </div>
         </div>
 
         <div *ngIf="processedAudioUrl" class="result-container">
-            <h2 class="result-title">¡Análisis completado!</h2>
-            
+            <h2 class="result-title" style="margin-top: 20px;">Resultado</h2>
+
             <div *ngIf="textOutput" class="text-output">
-                <h3>Feedback:</h3>
-                <p>{{ textOutput }}</p>
+                <h3 class="text-output-heading">El modelo tomó tu voz y entendió esto:</h3>
+                <p class="recognized-text">{{ textOutput }}</p>
             </div>
 
             <div class="audio-controls">
-                <h3>Audio procesado:</h3>
                 <audio controls [src]="processedAudioUrl" class="audio-player"></audio>
                 <button class="download-button" (click)="downloadProcessedAudio()">
                     <i class="fa-solid fa-file-arrow-down"></i>
-                    Descargar audio procesado
+                    <p style="margin-left: 10px;">Descargar audio</p>
                 </button>
             </div>
-            
-            <button class="new-recording-button" (click)="startRecording()">
-                <i class="fa-solid fa-microphone"></i>
-                Nueva grabación
-            </button>
         </div>
     </div>
 </div>

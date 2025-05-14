@@ -1,8 +1,8 @@
 <div class="layout-container" [class.sidebar-collapsed]="sidebarCollapsed">
-  <div class="top-navbar">
+  <!-- <div class="top-navbar">
     <h2 class="page-title">{{ currentPage }}</h2>
   </div>
-  
+   -->
   <div class="sidebar" [class.collapsed]="sidebarCollapsed">
     <div class="app-title">
       <h3 [class.app-icon-only]="sidebarCollapsed" (click)="toggleSidebar()" class="clickable-title">
@@ -19,7 +19,7 @@
             <span *ngIf="!sidebarCollapsed">Dashboard</span>
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a routerLink="/historial" routerLinkActive="active">
             <i class="fas fa-history"></i>
             <span *ngIf="!sidebarCollapsed">Historial</span>
@@ -30,7 +30,7 @@
             <i class="fas fa-cog"></i>
             <span *ngIf="!sidebarCollapsed">Configuración</span>
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>

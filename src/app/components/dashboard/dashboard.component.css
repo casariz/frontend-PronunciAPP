@@ -1,11 +1,11 @@
-  .container {
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 80vh;
     padding: 20px;
   }
-  
+
   .pronunciation-box {
     max-width: 600px;
     text-align: center;
@@ -14,19 +14,19 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     background-color: white;
   }
-  
+
   .title {
     font-size: 28px;
     margin-bottom: 20px;
     color: #333;
   }
-  
+
   .instructions {
     font-size: 16px;
     margin-bottom: 20px;
     color: #666;
   }
-  
+
   .text-box {
     background-color: #f8f9fa;
     border: 1px solid #ddd;
@@ -36,7 +36,7 @@
     text-align: center;
     line-height: 1.6;
   }
-  
+
   .record-button {
     background-color: #ff4d4f;
     color: white;
@@ -51,72 +51,179 @@
     cursor: pointer;
     transition: background-color 0.3s;
   }
-  
+
   .record-button:hover {
     background-color: #ff7875;
   }
-  
+
   .microphone-icon {
     margin-right: 10px;
     font-size: 22px;
   }
 
   .record-button.recording {
-        background-color: #ff0000;
-        animation: pulse 1.5s infinite;
+    background-color: #ff0000;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
     }
 
-    @keyframes pulse {
-        0% {
-            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
-        }
-        70% {
-            box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
-        }
-        100% {
-            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-        }
+    70% {
+      box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
     }
 
-    .recording-indicator {
-        color: #ff0000;
-        font-weight: bold;
-        margin-top: 15px;
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
     }
+  }
 
-    .recording-complete {
-        color: #4CAF50;
-        font-weight: bold;
-        margin-top: 15px;
-        margin-bottom: 10px;
-    }
-    
-    .audio-player-container {
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .audio-player {
-        width: 100%;
-        max-width: 300px;
-        margin: 10px 0;
-    }
-    
-    .download-button {
-        background-color: #4285F4;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 8px 16px;
-        margin-top: 10px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .download-button:hover {
-        background-color: #3367D6;
-    }
+  .recording-indicator {
+    color: #ff0000;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+
+  .recording-complete {
+    color: #4CAF50;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .audio-player-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .audio-player {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px 0;
+  }
+
+  .download-button {
+
+    margin: 0 auto;
+  }
+
+  .download-button {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .download-button:hover {
+    background-color: #3367D6;
+  }
+
+  /* Custom Progress Spinner Styles */
+.processing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.spinner {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+}
+
+.spinner-outer {
+  position: absolute;
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #ff4d4f;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  animation: spin 1.5s linear infinite;
+}
+
+.spinner-inner {
+  position: absolute;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-bottom-color: #4285F4;
+  width: 70%;
+  height: 70%;
+  top: 15%;
+  left: 15%;
+  animation: spin 1s ease-in-out infinite;
+}
+
+.processing-text {
+  color: #666;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  animation: pulse-text 1.5s infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-text {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Disabled button style during processing */
+.record-button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+.record-button:disabled:hover {
+  background-color: #cccccc;
+  animation: none;
+}
+
+/* Text output styling */
+.text-output {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.text-output-heading {
+  color: #495057;
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.recognized-text {
+  color: #212529;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 400;
+}

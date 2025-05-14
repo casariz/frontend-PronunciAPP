@@ -37,7 +37,9 @@ export class DashboardComponent {
     this.sendAudioService.sendAudio(this.audioBlob).subscribe({
       next: (response) => {
         console.log('Dashboard: Successfully received response from backend');
-        this.textOutput = response.text_output;
+        
+        // Process the text output to extract content between [EN] tags
+        this.textOutput = this.extractTextBetweenTags(response.text_output);
         
         // First try to use the base64 audio data if available
         if (response.audio_data) {
@@ -70,6 +72,21 @@ export class DashboardComponent {
         this.showDebuggingHelp(error);
       }
     });
+  }
+
+  // Helper method to extract text between [EN] tags
+  private extractTextBetweenTags(text: string): string {
+    if (!text) return '';
+    
+    const regex = /\[EN\](.*?)\[EN\]/;
+    const match = text.match(regex);
+    
+    if (match && match[1]) {
+      return match[1].trim();
+    }
+    
+    // If no match found, return the original text
+    return text;
   }
 
   // Helper method to show debugging tips in console
