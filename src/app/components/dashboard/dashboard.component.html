@@ -17,7 +17,7 @@
 
         <div class="action-section">
             <button class="record-button" [class.recording]="isRecording" (click)="startRecording()"
-                [disabled]="isProcessing">
+                [disabled]="isProcessing || showNameInput"> <!-- Deshabilitar si el input de nombre está visible -->
                 <i class="fa-solid" [class.fa-microphone]="!isRecording" [class.fa-stop]="isRecording"
                     style="margin-right: 10px;"></i>
                 <span>{{ isRecording ? 'Detener grabación' : 'Iniciar grabación' }}</span>
@@ -60,6 +60,18 @@
                     <p style="margin-left: 10px;">Descargar audio</p>
                 </button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Componente flotante para el nombre -->
+<div *ngIf="showNameInput" class="floating-name-input-overlay">
+    <div class="floating-name-input-content">
+        <p>Por favor, digita tu nombre</p>
+        <input type="text" [(ngModel)]="userName" placeholder="Escribe tu nombre aquí" class="name-input-field">
+        <div class="floating-name-input-actions">
+            <button (click)="confirmAndStartRecording()" [disabled]="!userName.trim()" class="confirm-button">Grabar con este nombre</button>
+            <button (click)="cancelNameInput()" class="cancel-button">Cancelar</button>
         </div>
     </div>
 </div>

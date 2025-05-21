@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Importar FormsModule
 import * as WavEncoder from 'wav-encoder';
 import { SendAudioService } from '../../services/send-audio.service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule], // Agregar FormsModule aquí
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -17,6 +18,9 @@ export class DashboardComponent {
   processedAudioUrl: string | null = null;
   textOutput: string | null = null;
   errorMessage: string | null = null;
+
+  showNameInput = false; // Nuevo: para controlar la visibilidad del input de nombre
+  userName: string = ''; // Nuevo: para almacenar el nombre del usuario
 
   private audioContext: AudioContext | null = null;
   private mediaStream: MediaStream | null = null;
@@ -32,9 +36,10 @@ export class DashboardComponent {
     this.errorMessage = null;
     
     console.log('Dashboard: Sending audio to backend, blob size:', this.audioBlob.size, 'bytes');
+    console.log('Dashboard: User name:', this.userName); // Log del nombre de usuario
     console.log('Dashboard: Using API URL:', this.sendAudioService['apiUrl']);
     
-    this.sendAudioService.sendAudio(this.audioBlob).subscribe({
+    this.sendAudioService.sendAudio(this.audioBlob, this.userName).subscribe({ // Pasar this.userName aquí
       next: (response) => {
         console.log('Dashboard: Successfully received response from backend');
         
@@ -146,13 +151,35 @@ export class DashboardComponent {
     this.processedAudioUrl = null;
     this.textOutput = null;
     this.errorMessage = null;
+    // No reseteamos userName aquí, podría querer usar el mismo nombre para otra grabación
   }
 
   async startRecording() {
-    // Clear previous recordings when starting a new one
+    if (this.isRecording) {
+      this.stopRecording();
+      return;
+    }
+    // En lugar de iniciar la grabación directamente, mostramos el input para el nombre
+    this.showNameInput = true;
+  }
+
+  cancelNameInput() {
+    this.showNameInput = false;
+    // Opcionalmente, resetear userName si se cancela:
+    // this.userName = ''; 
+  }
+
+  async confirmAndStartRecording() {
+    if (!this.userName || this.userName.trim() === '') {
+      alert('Por favor, digita tu nombre para continuar.');
+      return;
+    }
+    this.showNameInput = false;
+
+    // Lógica original de startRecording movida aquí
     this.resetAudioData();
     
-    if (this.isRecording) {
+    if (this.isRecording) { // Doble chequeo, aunque startRecording ya lo hace
       this.stopRecording();
       return;
     }

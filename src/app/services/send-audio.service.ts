@@ -18,14 +18,19 @@ export class SendAudioService {
 
   constructor(private http: HttpClient) { }
 
-  sendAudio(audioBlob: Blob): Observable<AudioInferenceResponse> {
+  sendAudio(audioBlob: Blob, userName: string): Observable<AudioInferenceResponse> { // Añadir userName como parámetro
     console.log('SendAudioService: Preparing to send audio to:', `${this.apiUrl}/api/infer_audio/`);
+    console.log('SendAudioService: User name being sent:', userName); // Log del nombre de usuario
     
     const formData = new FormData();
     formData.append('upload_audio_prompt', audioBlob, 'recording.wav');
+    formData.append('text_input', userName); // Agregar el nombre de usuario al FormData
     
     // Log the form data for debugging
     console.log('SendAudioService: FormData created with audio blob size:', audioBlob.size, 'bytes');
+    formData.forEach((value, key) => {
+      console.log(`SendAudioService: FormData field - ${key}:`, value);
+    });
     
     // Adding headers for debugging
     const headers = new HttpHeaders({
@@ -95,15 +100,6 @@ export class SendAudioService {
 
   private handleError(error: HttpErrorResponse) {
     console.error('SendAudioService Error:', error);
-
-    if (error.status === 0) {
-      console.error('SendAudioService: Network error occurred. This is likely a CORS issue or the server is not running.');
-      console.error('SendAudioService: Check if your FastAPI backend has CORS enabled with:');
-      console.error('from fastapi.middleware.cors import CORSMiddleware');
-      console.error('app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:4200"], allow_methods=["*"], allow_headers=["*"])');
-    } else {
-      console.error(`SendAudioService: Backend returned error code ${error.status}, body:`, error.error);
-    }
 
     return throwError(() => new Error(`SendAudioService: ${error.message || 'Error connecting to server. See console for details.'}`));
   }
