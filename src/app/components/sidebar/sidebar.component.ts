@@ -16,6 +16,9 @@ export class SidebarComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    // Set sidebar collapsed by default on mobile devices
+    this.sidebarCollapsed = this.isMobileDevice();
+    
     // Set initial page based on current route
     this.setCurrentPageFromUrl(this.router.url);
     
@@ -29,6 +32,10 @@ export class SidebarComponent implements OnInit {
 
   toggleSidebar(): void {
     this.sidebarCollapsed = !this.sidebarCollapsed;
+  }
+
+  private isMobileDevice(): boolean {
+    return window.innerWidth <= 768;
   }
 
   private setCurrentPageFromUrl(url: string): void {
