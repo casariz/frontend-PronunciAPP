@@ -8,6 +8,7 @@ export interface AudioInferenceResponse {
   text_output: string;
   audio_url: string;
   audio_data: string; // Base64 encoded audio data
+  warning?: string;   // <-- Añadido campo opcional warning
 }
 
 @Injectable({
@@ -47,6 +48,9 @@ export class SendAudioService {
         console.log('SendAudioService: Text output length:', response.text_output?.length);
         console.log('SendAudioService: Audio URL:', response.audio_url);
         console.log('SendAudioService: Base64 audio data available:', !!response.audio_data);
+        if (response.warning) {
+          console.warn('SendAudioService: Warning from backend:', response.warning);
+        }
       }),
       catchError(this.handleError)
     );

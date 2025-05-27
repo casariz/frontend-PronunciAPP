@@ -1,8 +1,9 @@
 <div class="container">
     <div class="pronunciation-box">
         <header class="section-header">
-            <h1 class="title">Veamos tu pronunciación</h1>
-            <p class="instructions">Lee el siguiente texto y presiona el micrófono para grabar</p>
+            <h1 class="title">Veamos tu pronunciación de Inglés</h1>
+            <p class="instructions">Lee el siguiente texto y presiona el micrófono para grabar </p>
+            <p class="instructions" style="font-weight: bold;">(pronuncia lo mejor que puedas cada palabra)</p>
         </header>
 
         <div class="text-box">
@@ -11,8 +12,15 @@
 
         <div>
             <p class="instructions">
-                Nota: Este pangrama contiene todas las letras del alfabeto inglés al menos una vez.
+                Dato curioso: Este pangrama contiene todas las letras del alfabeto inglés al menos una vez.
             </p>
+        </div>
+
+        <!-- Mostrar advertencia si existe -->
+        <div *ngIf="warningMessage" class="warning-message"
+            style="background: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 6px; padding: 12px; margin-bottom: 18px; display: flex; align-items: center;">
+            <i class="fa-solid fa-triangle-exclamation" style="margin-right: 10px; font-size: 20px;"></i>
+            <span>{{ warningMessage }}</span>
         </div>
 
         <div class="action-section">

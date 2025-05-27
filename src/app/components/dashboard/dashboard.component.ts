@@ -18,6 +18,7 @@ export class DashboardComponent {
   processedAudioUrl: string | null = null;
   textOutput: string | null = null;
   errorMessage: string | null = null;
+  warningMessage: string | null = null; // <-- Añadido para mostrar advertencias
 
   showNameInput = false; // Nuevo: para controlar la visibilidad del input de nombre
   userName: string = ''; // Nuevo: para almacenar el nombre del usuario
@@ -34,6 +35,7 @@ export class DashboardComponent {
     
     this.isProcessing = true;
     this.errorMessage = null;
+    this.warningMessage = null; // Limpiar advertencia previa
     
     console.log('Dashboard: Sending audio to backend, blob size:', this.audioBlob.size, 'bytes');
     console.log('Dashboard: User name:', this.userName); // Log del nombre de usuario
@@ -54,6 +56,13 @@ export class DashboardComponent {
           // Fallback to the URL if base64 data is not available
           console.log('Dashboard: Using audio URL from server');
           this.processedAudioUrl = this.sendAudioService.getFullAudioUrl(response.audio_url);
+        }
+        
+        // Procesar advertencia si existe
+        if (response.warning) {
+          this.warningMessage = response.warning;
+        } else {
+          this.warningMessage = null;
         }
         
         this.isProcessing = false;
@@ -151,6 +160,7 @@ export class DashboardComponent {
     this.processedAudioUrl = null;
     this.textOutput = null;
     this.errorMessage = null;
+    this.warningMessage = null; // Limpiar advertencia al resetear
     // No reseteamos userName aquí, podría querer usar el mismo nombre para otra grabación
   }
 
