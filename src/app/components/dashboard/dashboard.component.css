@@ -6,13 +6,22 @@
     padding: 20px;
   }
 
+  .pronunciation-shadow {
+    box-shadow:
+    -8px 0 24px -8px rgba(55, 57, 98, 0.12), /* sombra izquierda */
+    0 -8px 24px -8px rgba(55, 57, 98, 0.10),  /* sombra arriba */
+    0 4px 12px rgba(0, 0, 0, 0.1);            /* sombra original */
+    border-radius: 0; /* opcional, para evitar radios en la sombra */
+    display: inline-block;
+  }
+
   .pronunciation-box {
     max-width: 600px;
     text-align: center;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Restaurar si lo deseas */
     background-color: white;
+    /* box-shadow eliminado */
   }
 
   .title {

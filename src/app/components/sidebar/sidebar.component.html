@@ -1,51 +1,13 @@
-<div class="layout-container" [class.sidebar-collapsed]="sidebarCollapsed">
-  <!-- Barra superior para móviles -->
-  <ng-container *ngIf="isMobile; else desktopSidebar">
-    <div class="top-navbar mobile-navbar">
-      <h3 class="mobile-title">
-        PronunciAPP
-      </h3>
-      <button class="mobile-menu-btn" (click)="sidebarCollapsed = !sidebarCollapsed">
-        <i class="fas" [ngClass]="sidebarCollapsed ? 'fa-bars' : 'fa-times'"></i>
-      </button>
+<nav class="top-navbar-navbar">
+  <div class="navbar-content">
+    <div class="navbar-title">
+      <span>TG</span>
     </div>
-    <div class="mobile-nav-menu" *ngIf="!sidebarCollapsed">
-      <ul>
-        <li>
-          <a routerLink="/dashboard" routerLinkActive="active" (click)="sidebarCollapsed = true">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>Dashboard</span>
-          </a>
-        </li>
-        <!-- Agrega más enlaces aquí si es necesario -->
-      </ul>
-    </div>
-  </ng-container>
-
-  <!-- Sidebar para escritorio -->
-  <ng-template #desktopSidebar>
-    <div class="sidebar" [class.collapsed]="sidebarCollapsed">
-      <div class="app-title">
-        <h3 [class.app-icon-only]="sidebarCollapsed" (click)="toggleSidebar()" class="clickable-title">
-          <span *ngIf="!sidebarCollapsed">PronunciAPP</span>
-          <i *ngIf="sidebarCollapsed" class="fas" [ngClass]="sidebarCollapsed ? 'fa-bars' : 'fa-times'"></i>
-        </h3>
-      </div>
-      <div class="navigation">
-        <ul>
-          <li>
-            <a routerLink="/dashboard" routerLinkActive="active">
-              <i class="fas fa-tachometer-alt"></i>
-              <span *ngIf="!sidebarCollapsed">Dashboard</span>
-            </a>
-          </li>
-          <!-- ...otros enlaces... -->
-        </ul>
-      </div>
-    </div>
-  </ng-template>
-
-  <div class="content-area">
-    <ng-content></ng-content>
+    <ul class="navbar-links">
+      <!-- Aquí puedes agregar más enlaces si es necesario -->
+    </ul>
   </div>
+</nav>
+<div class="navbar-content-area">
+  <ng-content></ng-content>
 </div>
