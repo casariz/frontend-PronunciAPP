@@ -1,3 +1,8 @@
-<app-sidebar>
-  <router-outlet></router-outlet>
-</app-sidebar>
+<div style="position: fixed; inset: 0; z-index: -1;">
+  <div class="magicpattern" style="width:100vw; height:100vh;"></div>
+</div>
+<div style="position: relative; z-index: 1;">
+  <app-sidebar>
+    <router-outlet></router-outlet>
+  </app-sidebar>
+</div>

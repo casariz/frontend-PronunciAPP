@@ -54,3 +54,12 @@ h1, h2, h3, h4, h5, h6 {
 #root, #__next {
   isolation: isolate;
 }
+
+.magicpattern {
+  width: 100%;
+  height: 100%;
+  background-color: #e3e3e3;
+  opacity: 0.2;
+  background-image: radial-gradient(#373962 1.1px, #e3e3e3 1.1px);
+  background-size: 22px 22px;
+}
