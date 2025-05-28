@@ -81,9 +81,6 @@ export class DashboardComponent {
         }
         
         this.isProcessing = false;
-        
-        // Add debugging help for common issues
-        this.showDebuggingHelp(error);
       }
     });
   }
@@ -103,25 +100,6 @@ export class DashboardComponent {
     return text;
   }
 
-  // Helper method to show debugging tips in console
-  private showDebuggingHelp(error: any) {
-    console.log('------------------- DEBUGGING HELP -------------------');
-    console.log('1. Verifica que tu backend FastAPI esté ejecutándose en:', this.sendAudioService['apiUrl']);
-    console.log('2. El backend necesita tener CORS habilitado. Agrega a tu main.py:');
-    console.log('   from fastapi.middleware.cors import CORSMiddleware');
-    console.log('   app.add_middleware(');
-    console.log('       CORSMiddleware,');
-    console.log('       allow_origins=["http://localhost:4200"],  # URL de tu app Angular');
-    console.log('       allow_credentials=True,');
-    console.log('       allow_methods=["*"],');
-    console.log('       allow_headers=["*"]');
-    console.log('   )');
-    console.log('3. Revisa la consola de tu backend para ver posibles errores');
-    console.log('4. API URL configurada:', this.sendAudioService['apiUrl']);
-    console.log('5. Mensaje de error completo:', error);
-    console.log('----------------------------------------------------');
-  }
-
   // Add a method to test the backend connection directly
   testBackendConnection() {
     this.errorMessage = null;
@@ -135,7 +113,6 @@ export class DashboardComponent {
       error: (error) => {
         console.error('Dashboard: Backend connection test failed:', error);
         this.errorMessage = 'No se pudo conectar con el backend. Verifica la consola para más detalles.';
-        this.showDebuggingHelp(error);
       }
     });
   }

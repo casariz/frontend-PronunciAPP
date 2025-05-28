@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -9,15 +9,16 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./sidebar.component.css'],
   imports: [CommonModule],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   currentPage: string = 'Dashboard';
   sidebarCollapsed: boolean = false;
+  isMobile = false;
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Set sidebar collapsed by default on mobile devices
-    this.sidebarCollapsed = this.isMobileDevice();
+    this.checkMobile();
+    window.addEventListener('resize', this.checkMobile.bind(this));
     
     // Set initial page based on current route
     this.setCurrentPageFromUrl(this.router.url);
@@ -28,6 +29,17 @@ export class SidebarComponent implements OnInit {
     ).subscribe((event: any) => {
       this.setCurrentPageFromUrl(event.url);
     });
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.checkMobile.bind(this));
+  }
+
+  checkMobile() {
+    this.isMobile = window.innerWidth <= 768;
+    if (this.isMobile) {
+      this.sidebarCollapsed = true;
+    }
   }
 
   toggleSidebar(): void {

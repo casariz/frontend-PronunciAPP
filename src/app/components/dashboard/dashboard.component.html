@@ -1,19 +1,49 @@
 <div class="container">
     <div class="pronunciation-box">
         <header class="section-header">
-            <h1 class="title">Veamos tu pronunciación de Inglés</h1>
-            <p class="instructions">Lee el siguiente texto y presiona el micrófono para grabar </p>
-            <p class="instructions" style="font-weight: bold;">(pronuncia lo mejor que puedas cada palabra)</p>
+            <h1 class="title">PronunciAPP</h1>
+            
         </header>
 
         <div class="text-box">
             <p class="sample-text">The quick brown fox jumps over the lazy dog.</p>
         </div>
+        <p class="instructions" style="font-weight: bold;">(pronuncia lo mejor que puedas cada palabra)</p>
 
-        <div>
-            <p class="instructions">
-                Dato curioso: Este pangrama contiene todas las letras del alfabeto inglés al menos una vez.
-            </p>
+        <!-- NUEVO DISEÑO DE PASOS -->
+        <h2 style="text-align:center; margin-bottom: 24px; font-size: 1.5rem;">Pasos</h2>
+        <div style="display: flex; gap: 32px; justify-content: center; margin-bottom: 32px;">
+            <!-- Paso 1 -->
+            <div style="flex:1; background: #f8f9fa; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; align-items: center; padding: 32px 16px; min-width: 180px;">
+                <div style="font-size: 3.5rem; font-weight: bold; color: #ff4d4f; margin-bottom: 18px;">1</div>
+                <button class="record-button" [class.recording]="isRecording" (click)="startRecording()"
+                    [disabled]="isProcessing || showNameInput" style="margin-top: 12px; width: 100%; max-width: 200px;">
+                    <i class="fa-solid" [class.fa-microphone]="!isRecording" [class.fa-stop]="isRecording"
+                        style="margin-right: 10px;"></i>
+                    <span>{{ isRecording ? 'Detener grabación' : 'Iniciar grabación' }}</span>
+                </button>
+                <p *ngIf="isRecording" class="recording-indicator" style="margin-top: 18px;">
+                    <i class="fa-solid fa-circle pulse"></i> Grabando...
+                </p>
+                <div *ngIf="isProcessing" class="processing-container" style="margin-top: 18px;">
+                    <div class="spinner">
+                        <div class="spinner-outer"></div>
+                        <div class="spinner-inner"></div>
+                    </div>
+                    <div class="processing-text">Procesando audio...</div>
+                </div>
+            </div>
+            <!-- Paso 2 -->
+            <div style="flex:1; background: #f8f9fa; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; align-items: center; padding: 32px 16px; min-width: 180px;">
+                <div style="font-size: 3.5rem; font-weight: bold; color: #4285F4; margin-bottom: 18px;">2</div>
+                <a href="https://forms.gle/VL6d1MnbriaJntiE9" target="_blank" rel="noopener"
+                    style="width: 100%; max-width: 200px; text-decoration: none;">
+                    <button class="download-button" style="width: 100%;">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <span style="margin-left: 10px;">Ir al formulario</span>
+                    </button>
+                </a>
+            </div>
         </div>
 
         <!-- Mostrar advertencia si existe -->
@@ -23,30 +53,9 @@
             <span>{{ warningMessage }}</span>
         </div>
 
-        <div class="action-section">
-            <button class="record-button" [class.recording]="isRecording" (click)="startRecording()"
-                [disabled]="isProcessing || showNameInput"> <!-- Deshabilitar si el input de nombre está visible -->
-                <i class="fa-solid" [class.fa-microphone]="!isRecording" [class.fa-stop]="isRecording"
-                    style="margin-right: 10px;"></i>
-                <span>{{ isRecording ? 'Detener grabación' : 'Iniciar grabación' }}</span>
-            </button>
-
-            <p *ngIf="isRecording" class="recording-indicator">
-                <i class="fa-solid fa-circle pulse"></i> Grabando...
-            </p>
-
-            <div *ngIf="isProcessing" class="processing-container">
-                <div class="spinner">
-                    <div class="spinner-outer"></div>
-                    <div class="spinner-inner"></div>
-                </div>
-                <div class="processing-text">Procesando audio...</div>
-            </div>
-        </div>
-
+        <!-- Resultados y controles de audio -->
         <div *ngIf="audioUrl && !isProcessing && !processedAudioUrl" class="result-container" style="margin-top: 20px;">
             <h2 class="result-title">¡Grabación completada, pero algo falló!</h2>
-
             <p class="file-info">
                 <i class="fa-solid fa-circle-info"></i>
                 <span style="margin-left: 10px;">El audio se ha grabado correctamente, pero no se pudo procesar.</span>
@@ -55,26 +64,12 @@
 
         <div *ngIf="processedAudioUrl" class="result-container">
             <h2 class="result-title" style="margin-top: 20px;">Resultado</h2>
-
             <div *ngIf="textOutput" class="text-output">
                 <h3 class="text-output-heading">El modelo tomó tu voz y entendió esto:</h3>
                 <p class="recognized-text">{{ textOutput }}</p>
             </div>
-
             <div class="audio-controls">
                 <audio controls [src]="processedAudioUrl" class="audio-player"></audio>
-                <button class="download-button" (click)="downloadProcessedAudio()">
-                    <i class="fa-solid fa-file-arrow-down"></i>
-                    <p style="margin-left: 10px;">Descargar audio</p>
-                </button>
-            </div>
-
-            <!-- Enlace al formulario -->
-            <div style="margin-top: 24px; text-align: center;">
-                <a href="https://forms.gle/VL6d1MnbriaJntiE9" target="_blank" rel="noopener"
-                    style="color: #4285F4; font-weight: 500; text-decoration: underline;">
-                    ¿Nos ayudas? Completa este breve formulario
-                </a>
             </div>
         </div>
     </div>
@@ -86,7 +81,8 @@
         <p>Por favor, digita tu nombre</p>
         <input type="text" [(ngModel)]="userName" placeholder="Escribe tu nombre aquí" class="name-input-field">
         <div class="floating-name-input-actions">
-            <button (click)="confirmAndStartRecording()" [disabled]="!userName.trim()" class="confirm-button">Grabar con este nombre</button>
+            <button (click)="confirmAndStartRecording()" [disabled]="!userName.trim()" class="confirm-button">Grabar con
+                este nombre</button>
             <button (click)="cancelNameInput()" class="cancel-button">Cancelar</button>
         </div>
     </div>
