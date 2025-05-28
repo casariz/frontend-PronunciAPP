@@ -86,6 +86,10 @@
     margin-top: 15px;
   }
 
+  .recording-indicator-white {
+    color: #fff !important;
+  }
+
   .recording-complete {
     color: #4CAF50;
     font-weight: bold;
@@ -136,6 +140,11 @@
   margin: 20px 0;
 }
 
+.processing-outside {
+  margin: 24px auto 0 auto;
+  max-width: 400px;
+}
+
 .spinner {
   position: relative;
   width: 64px;
@@ -171,6 +180,56 @@
   font-size: 16px;
   letter-spacing: 0.5px;
   animation: pulse-text 1.5s infinite;
+}
+
+
+.step-action-button {
+  width: 100%;
+  max-width: 200px;
+  padding: 12px 0;
+  border: none;
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: #d32f2f; /* Rojo por defecto (para grabar) */
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.step-action-button .fa-file-lines {
+  color: #fff;
+}
+
+.step-action-button .fa-microphone,
+.step-action-button .fa-stop {
+  color: #fff;
+}
+
+.step-action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.step-action-button:hover:not(:disabled) {
+  background: #b71c1c;
+}
+
+/* Botón azul para el paso 2 */
+div[style*="background: #4285F4"] .step-action-button {
+  background: #fff;
+  color: #4285F4;
+  border: 2px solid #4285F4;
+}
+
+div[style*="background: #4285F4"] .step-action-button:hover:not(:disabled) {
+  background: #e3f0fd;
+  color: #4285F4;
 }
 
 @keyframes spin {
@@ -303,4 +362,20 @@
 
 .cancel-button:hover {
   background-color: #c82333;
+}
+
+[style*="background: #ff4d4f"], [style*="background: #4285F4"] {
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+[style*="background: #ff4d4f"]:hover:not(.disabled-step),
+[style*="background: #4285F4"]:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.09);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.disabled-step {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: not-allowed;
 }

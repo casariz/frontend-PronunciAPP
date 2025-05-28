@@ -258,4 +258,8 @@ export class DashboardComponent {
       window.URL.revokeObjectURL(this.processedAudioUrl);
     }
   }
+
+  abrirFormulario() {
+    window.open('https://forms.gle/VL6d1MnbriaJntiE9', '_blank', 'noopener');
+  }
 }

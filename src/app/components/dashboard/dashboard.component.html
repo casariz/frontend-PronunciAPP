@@ -14,35 +14,36 @@
         <h2 style="text-align:center; margin-bottom: 24px; font-size: 1.5rem;">Pasos</h2>
         <div style="display: flex; gap: 32px; justify-content: center; margin-bottom: 32px;">
             <!-- Paso 1 -->
-            <div style="flex:1; background: #f8f9fa; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; align-items: center; padding: 32px 16px; min-width: 180px;">
-                <div style="font-size: 3.5rem; font-weight: bold; color: #ff4d4f; margin-bottom: 18px;">1</div>
-                <button class="record-button" [class.recording]="isRecording" (click)="startRecording()"
-                    [disabled]="isProcessing || showNameInput" style="margin-top: 12px; width: 100%; max-width: 200px;">
-                    <i class="fa-solid" [class.fa-microphone]="!isRecording" [class.fa-stop]="isRecording"
-                        style="margin-right: 10px;"></i>
-                    <span>{{ isRecording ? 'Detener grabación' : 'Iniciar grabación' }}</span>
-                </button>
-                <p *ngIf="isRecording" class="recording-indicator" style="margin-top: 18px;">
+            <div 
+                style="flex:1; background: #ff4d4f; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; align-items: center; padding: 32px 16px; min-width: 180px; cursor: pointer; transition: box-shadow 0.2s, transform 0.15s;"
+                (click)="!isProcessing && !showNameInput && startRecording()"
+                [class.disabled-step]="isProcessing || showNameInput"
+                tabindex="0"
+                (keydown.enter)="!isProcessing && !showNameInput && startRecording()"
+                aria-label="Grabar"
+            >
+                <div style="font-size: 3.5rem; font-weight: bold; color: #fff; margin-bottom: 18px;">1</div>
+                <div style="display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.1rem; font-weight: 600;">
+                    <i class="fa-solid" [class.fa-microphone]="!isRecording" [class.fa-stop]="isRecording" style="margin-right: 10px;"></i>
+                    <span>{{ isRecording ? 'Detener grabación' : 'Grabar' }}</span>
+                </div>
+                <p *ngIf="isRecording" class="recording-indicator recording-indicator-white" style="margin-top: 18px;">
                     <i class="fa-solid fa-circle pulse"></i> Grabando...
                 </p>
-                <div *ngIf="isProcessing" class="processing-container" style="margin-top: 18px;">
-                    <div class="spinner">
-                        <div class="spinner-outer"></div>
-                        <div class="spinner-inner"></div>
-                    </div>
-                    <div class="processing-text">Procesando audio...</div>
-                </div>
             </div>
             <!-- Paso 2 -->
-            <div style="flex:1; background: #f8f9fa; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; align-items: center; padding: 32px 16px; min-width: 180px;">
-                <div style="font-size: 3.5rem; font-weight: bold; color: #4285F4; margin-bottom: 18px;">2</div>
-                <a href="https://forms.gle/VL6d1MnbriaJntiE9" target="_blank" rel="noopener"
-                    style="width: 100%; max-width: 200px; text-decoration: none;">
-                    <button class="download-button" style="width: 100%;">
-                        <i class="fa-solid fa-file-lines"></i>
-                        <span style="margin-left: 10px;">Ir al formulario</span>
-                    </button>
-                </a>
+            <div 
+                style="flex:1; background: #4285F4; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; align-items: center; padding: 32px 16px; min-width: 180px; cursor: pointer; transition: box-shadow 0.2s, transform 0.15s;"
+                (click)="abrirFormulario()"
+                tabindex="0"
+                (keydown.enter)="abrirFormulario()"
+                aria-label="Formulario"
+            >
+                <div style="font-size: 3.5rem; font-weight: bold; color: #fff; margin-bottom: 18px;">2</div>
+                <div style="display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.1rem; font-weight: 600;">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span style="margin-left: 10px;">Formulario</span>
+                </div>
             </div>
         </div>
 
@@ -71,6 +72,15 @@
             <div class="audio-controls">
                 <audio controls [src]="processedAudioUrl" class="audio-player"></audio>
             </div>
+        </div>
+
+        <!-- Procesando audio fuera del recuadro -->
+        <div *ngIf="isProcessing" class="processing-container processing-outside">
+            <div class="spinner">
+                <div class="spinner-outer"></div>
+                <div class="spinner-inner"></div>
+            </div>
+            <div class="processing-text">Procesando audio...</div>
         </div>
     </div>
 </div>
