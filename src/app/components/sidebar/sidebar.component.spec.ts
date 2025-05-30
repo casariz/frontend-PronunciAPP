@@ -20,4 +20,9 @@ describe('SidebarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render sidebar title', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent?.toLowerCase()).toContain('tg');
+  });
 });

@@ -20,4 +20,9 @@ describe('FooterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render university name', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent?.toLowerCase()).toContain('universidad del valle');
+  });
 });

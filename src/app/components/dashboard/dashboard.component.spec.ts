@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 import { DashboardComponent } from './dashboard.component';
 
@@ -8,7 +9,8 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardComponent]
+      imports: [DashboardComponent],
+      providers: [provideHttpClient()]
     })
     .compileComponents();
 
@@ -19,5 +21,15 @@ describe('DashboardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render dashboard title', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent?.toLowerCase()).toContain('pronunciapp');
+  });
+
+  it('should render the record button', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent?.toLowerCase()).toContain('grabar');
   });
 });
